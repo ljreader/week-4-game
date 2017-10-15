@@ -6,7 +6,7 @@ body {
     background: url(../images/Boxing-Ring.jpeg)no-repeat center center fixed;
     background-size: cover;
     font-family: 'Bevan';
-    color: #f6b6d2;
+    color: #f9a02c;
     margin-bottom: 8.5em;
 }
 
@@ -26,7 +26,7 @@ h1, h3, button {
 .charpic {
     height: 100px;
     width: 100%;
-    overflow-y: hidden; font: #235ebf;
+    overflow-y: hidden; font: #e9491e;
 }
 
 .thumbnail img {
@@ -41,7 +41,7 @@ h1, h3, button {
 }
 
 .thumbnail {
-    border: 0.2em solid #ed3c95;
+    border: 0.2em solid #e9491e;
 }
 
 .thumbnail:hover {
@@ -52,13 +52,13 @@ h1, h3, button {
 .btn, .btn-primary, .btn-primary:active, .btn-primary:focus, .btn-primary:visited {
     color: #d73613;
     background-color: rgba(112, 101, 0, 0.8);
-    border-color: #bbab16;
+    border-color: #e9491e;
 }
 
 .btn-primary:hover {
     color: #d73613;
     background-color: rgba(112, 101, 0, 1.0);
-    border-color: #bbab16;
+    border-color: #e9491e;
 
 }
 
@@ -69,7 +69,7 @@ h1, h3, button {
 #alerts {
     font-family: "Basic", sans-serif;
     font-size: 100%;
-    color: #F4E560;
+    color: #e9491e;
     text-align: center;
     min-height: 100%;
 
@@ -84,11 +84,11 @@ h1, h3, button {
     width: 100%;
     /* Set the fixed height of the footer here */
 
-    color: #91268f;
-    background-color:#ef66a5;
+    color: #2053b3;
+    background-color:#f89f2d;
     border-top-style: solid;
-    border-top-color: #d73613;
-    border-top-width: 5px;
+    border-top-color: #e9491e;
+    border-top-width: 8px;
 }
 
 .footer .small {
