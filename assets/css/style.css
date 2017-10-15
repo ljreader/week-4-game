@@ -50,16 +50,15 @@ h1, h3, button {
 
 
 .btn, .btn-primary, .btn-primary:active, .btn-primary:focus, .btn-primary:visited {
-    color: #d73613;
-    background-color: rgba(112, 101, 0, 0.8);
+    color: #2053b3;
+    background-color: #ffffff;
     border-color: #e9491e;
 }
 
 .btn-primary:hover {
-    color: #d73613;
-    background-color: rgba(112, 101, 0, 1.0);
+    color: #2053b3;
+    background-color: #ffffff;
     border-color: #e9491e;
-
 }
 
 #reset, #fight, #battle {
@@ -67,9 +66,9 @@ h1, h3, button {
 }
 
 #alerts {
-    font-family: "Basic", sans-serif;
-    font-size: 100%;
-    color: #e9491e;
+    font-family: "Bevan", sans-serif;
+    font-size: 16px;
+    color: #fad52d;
     text-align: center;
     min-height: 100%;
 
