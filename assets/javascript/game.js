@@ -1,10 +1,4 @@
-//set date
-let d = new Date();
-let year = d.getFullYear();
-
-$("#year").text(year);
-
-//initialize global variables
+//variables
 var wrestle = false;
 var chooseWrestler = false;
 var userPinned = false;
@@ -13,40 +7,64 @@ var victim;
 var attacker;
 var winner;
 var pinnedWrestler = [];
-// Jedi objects
+//Wrestlers//
 var HulkHogan = {
     hp: 100,
+    attackPower: 9
+}
+var AndreTheGiant = {
+    hp: 120,
+    attackPower: 7
+}
+var TheUndertaker = {
+    hp: 180,
+    attackPower: 5
+}
+var TheUltimateWarrior = {
+    hp: 150,
+    attackPower: 6
+}
+var Chyna = {
+    hp: 100,
+    attackPower: 9
+}
+var AndreTheGiant = {
+    hp: 120,
+    attackPower: 7
+}
+var TheUndertaker = {
+    hp: 180,
+    attackPower: 5
+}
+var TheUltimateWarrior = {
+    hp: 150,
     attackPower: 6
 }
 
-//manages click events on Jedi
-//will only work during original Jedi selection
-//or after user kills an opponent
+
 $(".character").on("click", function() {
-    //check for startgame conditions
     if (!(wrestle) && !(chooseWrestler)) {
-        chooseWrestler = true; // flags that user needs to choose opponent next
+        chooseWrestler = true; 
         $(this).css("border-color", "#320B68");
-        $("#choose").html("Enemy"); //changes choose Jedi prompt
-        attacker = $(this).detach(); // removes user from available
-        attacker.appendTo("#active"); // adds user to battle
+        $("#choose").html("Enemy"); 
+        attacker = $(this).detach(); 
+        attacker.appendTo("#active"); 
         console.log(attacker);
         $("#battle").fadeIn("slow");
-    } else if (chooseWrestler) { //user is alive and needs a new opponent
+    } else if (chooseWrestler) { 
         chooseWrestler = false;
-        wrestle = true; //flags functionality of fight and reset buttons, disables characters
-        $("#alerts").html(""); // clears any alerts, if any
+        wrestle = true; 
+        $("#alerts").html(""); 
         $(this).css("border-color", "#B9161A");
-        victim = $(this).detach(); // removes opponent from available
-        victim.appendTo("#under-attack"); // adds opponent to battle
+        victim = $(this).detach(); 
+        victim.appendTo("#under-attack"); 
         console.log(victim);
-        $("#available").fadeOut("slow"); //hide available
-        $("#fight").fadeIn("slow"); //show fight button
+        $("#available").fadeOut("slow"); 
+        $("#fight").fadeIn("slow"); 
     } 
 })
 
 function reset() {
-    // gets opponent to reinsert into available if the user lost
     if (userPinned) {
         winner = victim.detach();
     }
@@ -54,95 +72,85 @@ function reset() {
     chooseWrestler = false;
     userPinned = false;
     aiPinned = false;
-    // reattaches all pinnedWrestler (if any), including a dead user, back to available
     for (let x = 0; x < pinnedWrestler.length; x++) {
         pinnedWrestler[x].appendTo("#available");
     }
-    //emptys pinnedWrestler array (perhaps there is function I could chain to above to do the same?)
-    pinnedWrestler = [];
-    winner.appendTo("#available"); //winner will either be user or opponent, attaches to available
-    //reset display to start screen
+   pinnedWrestler = [];
+    winner.appendTo("#available"); 
+
     $("#alerts").html("");
     $("#choose").html("Character");
     $(".character").css("border-color", "#7D9403");
     $("#reset").fadeOut("slow");
     $("#battle").fadeOut("slow");
-    //resets data on all Jedi to start conditions
-    $("#HulkHogan").data("hp", HulkHogan.hp).find(".jedi-HP").html(HulkHogan.hp);
+    $("#HulkHogan").data("hp", HulkHogan.hp).find("wrestlerHp").html(HulkHogan.hp);
     $("#HulkHogan").data("attack-power", HulkHogan.attackPower);
-    $("#AndreTheGiant").data("hp", AndreTheGiant.hp).find(".jedi-HP").html(AndreTheGiant.hp);;
+    $("#AndreTheGiant").data("hp", AndreTheGiant.hp).find("wrestlerHp").html(AndreTheGiant.hp);;
     $("#AndreTheGiant").data("attack-power", AndreTheGiant.attackPower);
-    $("#TheUndertaker").data("hp", TheUndertaker.hp).find(".jedi-HP").html(TheUndertaker.hp);;
+    $("#TheUndertaker").data("hp", TheUndertaker.hp).find("wrestlerHp").html(TheUndertaker.hp);;
     $("#TheUndertaker").data("attack-power", TheUndertaker.attackPower);
-    $("#TheUltimateWarrior").data("hp", TheUltimateWarrior.hp).find(".jedi-HP").html(TheUltimateWarrior.hp);;
+    $("#TheUltimateWarrior").data("hp", TheUltimateWarrior.hp).find("wrestlerHp").html(TheUltimateWarrior.hp);;
     $("#TheUltimateWarrior").data("attack-power", TheUltimateWarrior.attackPower);
-    //only shows Jedi once they have been reset to original conditions
     $("#available").fadeIn("slow");
 }
 
+// functions //
 var transition;
+
 function checkForWin () {
-    //see if all three jedi other than user have been killed (i.e. added to pinnedWrestler array)
     if (pinnedWrestler.length === 3) {
         function youWin() {
-            $("#alerts").text(" YOU WIN!!!");
-            $("#fight").fadeOut("fast"); //hide fight button
-            $("#battle").fadeOut("fast"); //hide battle area
-            $("#reset").fadeIn("slow"); //show start over button
+            $("#alerts").text(" You Win!!!");
+            $("#fight").fadeOut("fast"); 
+            $("#battle").fadeOut("fast"); 
+            $("#reset").fadeIn("slow"); 
             wrestle = false;
-            //get winner out of attack position to be reinserted into available on reset
             winner = attacker.detach();
         }
         transition = setTimeout(youWin, 2000);
     } else { 
-        $("#fight").fadeOut("slow"); // hide fight button
-        $("#available").fadeIn("slow"); //show remaining available Jedi
+        $("#fight").fadeOut("slow"); 
+        $("#available").fadeIn("slow"); 
         chooseWrestler = true;
     }
 }
 
-//calculates damage done by user before taking damage from opponent
 function battle() {
-    var vhp = parseInt(victim.data("hp")); // get victim hit points
-    var attack = parseInt(attacker.data("attack-power")); // get user attack power 
-    vhp-= attack; //decrease victim hit points
-    victim.data("hp", vhp); //change data on victim hp
-    $("#under-attack").find(".jedi-HP").html(vhp); // display change in hp
-    $("#alerts").html("You did " + attack + " damage to " + victim.data("name") +". ");
-    attack+=attack; //update attack-power
-    attacker.data("attack-power", attack); //change data on user attack power
-    //check to see if victim has been killed
+    var vhp = parseInt(victim.data("hp")); 
+    var attack = parseInt(attacker.data("attack-power")); 
+    vhp-= attack; 
+    victim.data("hp", vhp); 
+    $("#under-attack").find("wrestlerHp").html(vhp); 
+    $("#alerts").html("You did " + attack + " damage to " + victim.data("name") +"! ");
+    attack+=attack; 
+    attacker.data("attack-power", attack); 
     if (vhp <= 0) {
-        function jediDied() {
+        function wrestlerPinned() {
             pinnedWrestler.push(victim.detach());
             console.log(pinnedWrestler);
-            $("#alerts").text(" And you killed him!");
-            //checks to see if all jedi are dead
+            $("#alerts").text(" And you get the Win!");
             checkForWin();
         }
-        transition = setTimeout(jediDied, 2000);
+            transition = setTimeout(wrestlerPinned, 2000);
     } else {
-        //this only runs if victim still alive. This calculates counter-damage
-        var uhp = parseInt(attacker.data("hp")); // get user hit points
-        var counterAttack = parseInt(victim.data("counter-attack")); // get victim counter
-        uhp -= counterAttack; //decrease user hit points
-        attacker.data("hp", uhp); //change data on user hp
-        $("#active").find(".jedi-HP").html(uhp); //display user hp
-        $("#alerts").append(victim.data("name") + " did " + counterAttack + " damage to you.");
-        //check to see if user has been killed
+        var uhp = parseInt(attacker.data("hp"));
+        var counterAttack = parseInt(victim.data("counter-attack")); 
+        uhp -= counterAttack; 
+        attacker.data("hp", uhp);
+        $("#active").find("wrestlerHp").html(uhp);
+        $("#alerts").append(victim.data("name") + " " + " did " + counterAttack + " damage to you.");
         if (uhp <= 0) {
-            $("#alerts").text(" And he killed you!");
-            function youDied() {
+            $("#alerts").text(" You got pinned!");
+            function gotPinned() {
                 userPinned = true;
-                //store dead Jedi in an array
+           
                 pinnedWrestler.push(attacker.detach());
                 console.log(pinnedWrestler);
-                //go to end-game screen
-                $("#fight").fadeOut("fast"); // hide fight button
-                $("#battle").fadeOut("fast"); //hide battle area
-                $("#reset").fadeIn("slow"); // show start over button
+                $("#fight").fadeOut("fast"); 
+                $("#battle").fadeOut("fast"); 
+                $("#reset").fadeIn("slow"); 
             }
-            transition = setTimeout(youDied, 2000);
+            transition = setTimeout(gotPinned, 2000);
         }
     }
 }

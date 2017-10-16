@@ -2,6 +2,7 @@ html {
     min-height: 100%;
     position: relative;
 }
+
 body {
     background: url(../images/Boxing-Ring.jpeg)no-repeat center center fixed;
     background-size: cover;
@@ -21,7 +22,6 @@ body {
 h1, h3, button {
     text-align: center;
 }
-
 
 .charpic {
     height: 100px;
@@ -48,7 +48,6 @@ h1, h3, button {
     filter: drop-shadow(0.2em 0.2em 0em #d73613);
 }
 
-
 .btn, .btn-primary, .btn-primary:active, .btn-primary:focus, .btn-primary:visited {
     color: #2053b3;
     background-color: #ffffff;
@@ -71,7 +70,6 @@ h1, h3, button {
     color: #fad52d;
     text-align: center;
     min-height: 100%;
-
 }
 
 .footer {
@@ -81,8 +79,6 @@ h1, h3, button {
     margin-top: 0.5em;
     padding-top: 0.5em;
     width: 100%;
-    /* Set the fixed height of the footer here */
-
     color: #2053b3;
     background-color:#f89f2d;
     border-top-style: solid;
